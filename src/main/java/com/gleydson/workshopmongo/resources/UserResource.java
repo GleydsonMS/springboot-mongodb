@@ -1,5 +1,6 @@
 package com.gleydson.workshopmongo.resources;
 
+import com.gleydson.workshopmongo.domain.Post;
 import com.gleydson.workshopmongo.domain.User;
 import com.gleydson.workshopmongo.dto.UserDto;
 import com.gleydson.workshopmongo.services.UserService;
@@ -52,5 +53,11 @@ public class UserResource {
         user.setId(id);
         userService.update(user);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User user = userService.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
     }
 }
